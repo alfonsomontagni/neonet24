@@ -1,0 +1,419 @@
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\.xml 
+ 
+nome file: pom.xml 
+ 
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com</groupId>
+	<artifactId>neunet24</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>neunet24</name>
+	<description>neunet24</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter-test</artifactId>
+			<version>3.0.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\.mvn\wrapper\.properties 
+ 
+nome file: maven-wrapper.properties 
+ 
+# Licensed to the Apache Software Foundation (ASF) under one
+# or more contributor license agreements.  See the NOTICE file
+# distributed with this work for additional information
+# regarding copyright ownership.  The ASF licenses this file
+# to you under the Apache License, Version 2.0 (the
+# "License"); you may not use this file except in compliance
+# with the License.  You may obtain a copy of the License at
+#
+#   http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing,
+# software distributed under the License is distributed on an
+# "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+# KIND, either express or implied.  See the License for the
+# specific language governing permissions and limitations
+# under the License.
+wrapperVersion=3.3.2
+distributionType=only-script
+distributionUrl=https://repo.maven.apache.org/maven2/org/apache/maven/apache-maven/3.9.9/apache-maven-3.9.9-bin.zip
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\java\com\neunet24\.java 
+ 
+nome file: Neunet24Application.java 
+ 
+package com.neunet24;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+
+import com.neunet24.notification.core.NotificationManager;
+
+@SpringBootApplication
+public class Neunet24Application {
+
+	public static void main(String[] args) {
+	ApplicationContext context =	SpringApplication.run(Neunet24Application.class, args);
+		
+		
+		var manager = context.getBean(NotificationManager.class);
+		manager.sendNotification("this is a test");
+	}
+
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\java\com\neunet24\notification\core\.java 
+ 
+nome file: NotificationManager.java 
+ 
+package com.neunet24.notification.core;
+
+import org.springframework.stereotype.Service;
+
+import com.neunet24.notification.service.NotificationService;
+
+@Service
+public class NotificationManager {
+	private final NotificationService notificationService;
+
+	public NotificationManager(NotificationService notificationService) {
+		this.notificationService = notificationService;
+	}
+	
+	public void sendNotification(String message) {
+		notificationService.send(message);
+	}
+
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\java\com\neunet24\notification\service\.java 
+ 
+nome file: NotificationService.java 
+ 
+package com.neunet24.notification.service;
+
+public interface NotificationService {
+
+	public void send(String message) ;
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\java\com\neunet24\notification\service\impl\.java 
+ 
+nome file: EmailNotificationService.java 
+ 
+package com.neunet24.notification.service.impl;
+
+import org.springframework.context.annotation.Primary;
+import org.springframework.stereotype.Service;
+
+import com.neunet24.notification.service.NotificationService;
+
+@Service("email")
+@Primary
+public class EmailNotificationService implements NotificationService {
+
+	@Override
+	public void send(String message) {
+		// TODO Auto-generated method stub
+		System.out.println("Sending EMAIL: "+message);
+
+	}
+
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\java\com\neunet24\notification\service\impl\.java 
+ 
+nome file: SmsNotificationService.java 
+ 
+package com.neunet24.notification.service.impl;
+
+import org.springframework.stereotype.Service;
+
+import com.neunet24.notification.service.NotificationService;
+
+@Service("sms")
+public class SmsNotificationService implements NotificationService {
+
+	@Override
+	public void send(String message) {
+		// TODO Auto-generated method stub
+		System.out.println("Sending SMS: "+message);
+	}
+
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\main\resources\.properties 
+ 
+nome file: application.properties 
+ 
+spring.application.name=neunet24
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\src\test\java\com\neunet24\.java 
+ 
+nome file: Neunet24ApplicationTests.java 
+ 
+package com.neunet24;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class Neunet24ApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\target\classes\.properties 
+ 
+nome file: application.properties 
+ 
+spring.application.name=neunet24
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\target\classes\META-INF\maven\com\neunet24\.xml 
+ 
+nome file: pom.xml 
+ 
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>3.4.5</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	<groupId>com</groupId>
+	<artifactId>neunet24</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>neunet24</name>
+	<description>neunet24</description>
+	<url/>
+	<licenses>
+		<license/>
+	</licenses>
+	<developers>
+		<developer/>
+	</developers>
+	<scm>
+		<connection/>
+		<developerConnection/>
+		<tag/>
+		<url/>
+	</scm>
+	<properties>
+		<java.version>21</java.version>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-data-jpa</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-thymeleaf</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.flywaydb</groupId>
+			<artifactId>flyway-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter</artifactId>
+			<version>3.0.4</version>
+		</dependency>
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-devtools</artifactId>
+			<scope>runtime</scope>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<scope>runtime</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<optional>true</optional>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis.spring.boot</groupId>
+			<artifactId>mybatis-spring-boot-starter-test</artifactId>
+			<version>3.0.4</version>
+			<scope>test</scope>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<configuration>
+					<annotationProcessorPaths>
+						<path>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</path>
+					</annotationProcessorPaths>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+					<excludes>
+						<exclude>
+							<groupId>org.projectlombok</groupId>
+							<artifactId>lombok</artifactId>
+						</exclude>
+					</excludes>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>
+ 
+=================================================================== 
+Directory e tipo:  \00risorse_JAVA\workMILLE\neonet24\target\classes\META-INF\maven\com\neunet24\.properties 
+ 
+nome file: pom.properties 
+ 
+#Generated by Maven Integration for Eclipse
+#Fri May 02 10:11:57 CEST 2025
+artifactId=neunet24
+groupId=com
+m2e.projectLocation=D\:\\00risorse_JAVA\\workMILLE\\neonet24
+m2e.projectName=neonet24
+version=0.0.1-SNAPSHOT
+ 
+=================================================================== 
